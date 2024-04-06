@@ -1,7 +1,8 @@
-// old loadMore screen
+// previosuly it was called loadMore screen
 
 import 'package:flutter/material.dart';
-import 'package:paper_trading/trade_data.dart'; // Import trade_data.dart
+import 'package:paper_trading/trade_data.dart';
+import 'package:paper_trading/stock_info.dart';
 
 class LoadMoreScreen extends StatefulWidget {
   const LoadMoreScreen({Key? key}) : super(key: key);
@@ -9,29 +10,15 @@ class LoadMoreScreen extends StatefulWidget {
   _LoadMoreScreenState createState() => _LoadMoreScreenState();
 }
 
-stockInfo() {
-  // dont mess with this func
-  return const Center(
-    child: SizedBox(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[Text("Made By Varun Banka")],
-        ),
-      ),
-    ),
-  );
-}
-
 class _LoadMoreScreenState extends State<LoadMoreScreen> {
-  final List<Map<String, dynamic>> loadMoreItems = tradeItems;
+  final List<Map<String, dynamic>> loadMoreItems = fullData;
   final List<Map<String, dynamic>> filteredItems = [];
   String searchText = "";
 
   void _showItemDetails(Map<String, dynamic> item) {
     showModalBottomSheet<void>(
       context: context,
-      builder: (ctx) => stockInfo(),
+      builder: (BuildContext context) => StockInfo(item: item),
     );
   }
 

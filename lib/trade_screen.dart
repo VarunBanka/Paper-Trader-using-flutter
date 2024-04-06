@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:paper_trading/trade_data.dart'; // Import trade_data.dart
+import 'package:paper_trading/stock_info.dart';
 
 class TradeScreen extends StatefulWidget {
   const TradeScreen({Key? key}) : super(key: key);
@@ -7,25 +8,11 @@ class TradeScreen extends StatefulWidget {
   _TradeScreenState createState() => _TradeScreenState();
 }
 
-stockInfo() {
-  // dont mess with this func
-  return const Center(
-    child: SizedBox(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[Text("Made By Varun Banka")],
-        ),
-      ),
-    ),
-  );
-}
-
 class _TradeScreenState extends State<TradeScreen> {
   void _showItemDetails(Map<String, dynamic> item) {
     showModalBottomSheet<void>(
       context: context,
-      builder: (ctx) => stockInfo(),
+      builder: (BuildContext context) => StockInfo(item: item),
     );
   }
 
