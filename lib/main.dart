@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:paper_trading/trade_screen.dart';
 import 'package:paper_trading/portfolio_screen.dart';
 import 'package:paper_trading/about_screen.dart';
+import 'package:paper_trading/search_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -39,6 +40,13 @@ class MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('App Title'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search), // Search icon for Load More screen
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => LoadMoreScreen())),
+          ),
+        ],
       ),
       body: _buildBody(), // Delegate body building based on index
       bottomNavigationBar: BottomNavigationBar(
