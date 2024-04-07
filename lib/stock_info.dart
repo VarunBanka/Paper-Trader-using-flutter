@@ -1,9 +1,12 @@
 // Widget for stock info in modal bottom sheet
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // Import for shared preferences
 
 class StockInfo extends StatelessWidget {
   final Map<String, dynamic> item;
-  const StockInfo({Key? key, required this.item}) : super(key: key);
+  num balance = 10000;
+
+  StockInfo({Key? key, required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +29,19 @@ class StockInfo extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () => {},
+                  onPressed: () async {
+                    final stockPrice = item['price'];
+                    await _buyStock();
+                  },
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                   child: const Text('Buy'),
                 ),
                 const SizedBox(width: 20),
                 ElevatedButton(
-                  onPressed: () => {},
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  onPressed: () => {}, // Disable sell button for now
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                  ),
                   child: const Text('Sell'),
                 ),
               ],
@@ -42,5 +50,18 @@ class StockInfo extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _buyStock() async {
+    final num stockPrice = item['price'];
+    print('Buying ${item['name']} stock at \$$stockPrice...');
+    print('Updating balance...');
+
+    balance = balance - stockPrice;
+    print(balance);
+
+    // Save the updated balance to SharedPreferences
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('balance', balance.toInt()); // Cast to int
   }
 }
