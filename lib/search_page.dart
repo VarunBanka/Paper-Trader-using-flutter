@@ -1,7 +1,7 @@
 // previosuly it was called loadMore screen
 
 import 'package:flutter/material.dart';
-import 'package:paper_trading/trade_data.dart';
+import 'package:paper_trading/database.dart';
 import 'package:paper_trading/stock_info.dart';
 
 class LoadMoreScreen extends StatefulWidget {

@@ -3,10 +3,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class PortfolioScreen extends StatefulWidget {
   @override
-  _PortfolioScreenState createState() => _PortfolioScreenState();
+  PortfolioScreenState createState() => PortfolioScreenState();
 }
 
-class _PortfolioScreenState extends State<PortfolioScreen> {
+List<String> myStocks = [];
+
+class PortfolioScreenState extends State<PortfolioScreen> {
   int? balance; // Declare a variable to store the retrieved balance
 
   @override
