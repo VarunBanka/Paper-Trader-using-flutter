@@ -33,7 +33,7 @@ class StockInfo extends StatelessWidget {
                   onPressed: () async {
                     final stockName = item['name'];
                     final stockPrice = item['price'];
-                    await _buyStock(stockName);
+                    await _buyStock(context, stockName);
                   },
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                   child: const Text('Buy'),
@@ -54,19 +54,18 @@ class StockInfo extends StatelessWidget {
     );
   }
 
-  Future<void> _buyStock(String stockName) async {
+  Future<void> _buyStock(BuildContext context, String stockName) async {
     final num stockPrice = item['price'];
-    print('Buying ${item['name']} stock at \$$stockPrice...');
-    print('Updating balance...');
 
     balance = balance - stockPrice;
-    print(balance);
-
-    // Save the updated balance to SharedPreferences
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('balance', balance.toInt()); // Cast to int
+    await prefs.setInt('balance', balance.toInt());
 
     myStocks.add(stockName);
     await prefs.setStringList('myStocks', myStocks);
+
+    if (!context.mounted) return;
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => PortfolioScreen()));
   }
 }

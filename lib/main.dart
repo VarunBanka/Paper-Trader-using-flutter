@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Dark Theme App',
+      // title: 'Dark Theme App',
       theme: ThemeData.dark(),
       home: const MyHomePage(),
     );
@@ -42,9 +42,11 @@ class MyHomePageState extends State<MyHomePage> {
         title: const Text('App Title'),
         actions: [
           IconButton(
-            icon: Icon(Icons.search), // Search icon for Load More screen
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => LoadMoreScreen())),
+            icon: const Icon(Icons.search), // Search icon for Load More screen
+            onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const LoadMoreScreen())),
           ),
         ],
       ),
@@ -74,7 +76,7 @@ class MyHomePageState extends State<MyHomePage> {
   Widget _buildBody() {
     switch (_selectedIndex) {
       case 0:
-        return TradeScreen();
+        return const TradeScreen();
       case 1:
         return PortfolioScreen();
       case 2:

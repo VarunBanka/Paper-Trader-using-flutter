@@ -29,23 +29,30 @@ class PortfolioScreenState extends State<PortfolioScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Portfolio'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              balance != null
-                  ? 'Your Balance: \$ $balance'
-                  : 'Loading Balance...',
-              style: const TextStyle(fontSize: 20),
+      body: Column(
+        // Wrap balance and ListView in a Column
+        children: [
+          // Display balance (see below)
+          Container(
+            padding: EdgeInsets.all(16.0), // Add padding
+            child: Text(
+              'Balance: \$${balance.toString()}',
+              style: TextStyle(fontSize: 18.0), // Adjust style (optional)
             ),
-            const SizedBox(height: 20),
-            // Add other portfolio-related widgets here
-          ],
-        ),
+          ),
+          Expanded(
+            // Ensures ListView fills remaining space
+            child: ListView.builder(
+              itemCount: myStocks.length,
+              itemBuilder: (context, index) {
+                final stockName = myStocks[index];
+                return ListTile(
+                  title: Text(stockName),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
