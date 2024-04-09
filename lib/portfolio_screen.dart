@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+num balance = 10000;
+
 class PortfolioScreen extends StatefulWidget {
   @override
   PortfolioScreenState createState() => PortfolioScreenState();

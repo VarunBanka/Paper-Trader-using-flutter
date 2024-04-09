@@ -1,11 +1,10 @@
 // Widget for stock info in modal bottom sheet
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart'; // Import for shared preferences
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:paper_trading/portfolio_screen.dart';
 
 class StockInfo extends StatelessWidget {
   final Map<String, dynamic> item;
-  num balance = 10000;
 
   StockInfo({Key? key, required this.item}) : super(key: key);
 
@@ -40,7 +39,8 @@ class StockInfo extends StatelessWidget {
                 ),
                 const SizedBox(width: 20),
                 ElevatedButton(
-                  onPressed: () => {}, // Disable sell button for now
+                  onPressed: () =>
+                      _sellStock(context, item['name'], balance, item),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
                   ),
@@ -65,7 +65,48 @@ class StockInfo extends StatelessWidget {
     await prefs.setStringList('myStocks', myStocks);
 
     if (!context.mounted) return;
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => PortfolioScreen()));
+    if (!context.mounted) return;
+    Navigator.pop(context); // Close the modal bottom sheet
+    print("Purchased $stockName and now the balance is $balance");
   }
+}
+
+Future<void> _sellStock(
+    BuildContext context, String stockName, balance, item) async {
+  final num stockPrice = item['price'];
+
+  if (myStocks.contains(stockName) && balance >= stockPrice) {
+    balance = balance + stockPrice;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('balance', balance.toInt());
+
+    myStocks.remove(stockName);
+    await prefs.setStringList('myStocks', myStocks);
+    print("Sold $stockName and now the balance is $balance");
+  } else {
+    String message;
+    if (!myStocks.contains(stockName)) {
+      message = "You don't own $stockName.";
+    } else {
+      message = "Insufficient balance to sell $stockName.";
+    }
+
+    // Show informative dialog
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Sell Stock'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  if (!context.mounted) return;
+  Navigator.pop(context); // Close modal bottom sheet
 }
