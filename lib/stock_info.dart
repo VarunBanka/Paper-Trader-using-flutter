@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:paper_trading/portfolio_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class StockInfo extends StatelessWidget {
   final Map<String, dynamic> item;
@@ -47,6 +48,14 @@ class StockInfo extends StatelessWidget {
                   child: const Text('Sell'),
                 ),
               ],
+            ),
+            const SizedBox(
+              height: 20,
+              width: 20,
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('More Info'),
             ),
           ],
         ),
