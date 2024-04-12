@@ -40,7 +40,7 @@ class MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('App Title'),
+        title: const Text('Paper Trader'),
         actions: [
           IconButton(
             icon: const Icon(Icons.search), // Search icon for Load More screen

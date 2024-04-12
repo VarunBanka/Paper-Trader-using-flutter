@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 num balance = 10000;
 
 class PortfolioScreen extends StatefulWidget {
+  const PortfolioScreen({Key? key}) : super(key: key);
   @override
   PortfolioScreenState createState() => PortfolioScreenState();
 }
@@ -11,7 +12,7 @@ class PortfolioScreen extends StatefulWidget {
 List<String> myStocks = [];
 
 class PortfolioScreenState extends State<PortfolioScreen> {
-  int? balance; // Declare a variable to store the retrieved balance
+  int? balance;
 
   @override
   void initState() {
@@ -23,8 +24,8 @@ class PortfolioScreenState extends State<PortfolioScreen> {
     final prefs = await SharedPreferences.getInstance();
     final retrievedBalance = prefs.getInt('balance');
     setState(() {
-      balance =
-          retrievedBalance ?? 0; // Set state with retrieved or default value
+      balance = retrievedBalance ??
+          10000; // Set state with retrieved or default value
     });
   }
 
@@ -36,10 +37,10 @@ class PortfolioScreenState extends State<PortfolioScreen> {
         children: [
           // Display balance (see below)
           Container(
-            padding: EdgeInsets.all(16.0), // Add padding
+            padding: const EdgeInsets.all(16.0),
             child: Text(
               'Balance: \$${balance.toString()}',
-              style: TextStyle(fontSize: 18.0), // Adjust style (optional)
+              style: const TextStyle(fontSize: 18.0), // Adjust style (optional)
             ),
           ),
           Expanded(
