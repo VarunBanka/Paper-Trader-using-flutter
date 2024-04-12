@@ -54,7 +54,16 @@ class StockInfo extends StatelessWidget {
               width: 20,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                final stockName = item['name'];
+                Uri url = Uri.parse(
+                    'https://www.google.com/search?q=$stockName+stock');
+                if (await canLaunchUrl(url)) {
+                  await launchUrl(url);
+                } else {
+                  throw 'Could not launch $url';
+                }
+              },
               child: const Text('More Info'),
             ),
           ],
